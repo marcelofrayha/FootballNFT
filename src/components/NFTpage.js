@@ -17,7 +17,6 @@ async function getNFTData(tokenId) {
     //After adding your Hardhat network to your metamask, this code will get providers and signers
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const addr = await signer.getAddress();
     //Pull the deployed contract instance
     let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
     //create an NFT Token
@@ -38,9 +37,6 @@ async function getNFTData(tokenId) {
     }
     console.log(item);
     updateData(item);
-    updateDataFetched(true);
-    console.log("address", addr)
-    updateCurrAddress(addr);
 }
 
 async function buyNFT(tokenId) {
@@ -49,23 +45,18 @@ async function buyNFT(tokenId) {
         //After adding your Hardhat network to your metamask, this code will get providers and signers
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-
         //Pull the deployed contract instance
         let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer);
         const salePrice = ethers.utils.parseUnits(data.price, 'ether')
-        updateMessage("Buying the NFT... Please Wait (Upto 5 mins)")
-        //run the executeSale function
         let transaction = await contract.executeSale(tokenId, {value:salePrice});
         await transaction.wait();
 
         alert('You successfully bought the NFT!');
-        updateMessage("");
     }
     catch(e) {
         alert("Upload Error"+e)
     }
 }
-
     const params = useParams();
     const tokenId = params.tokenId;
     if(!dataFetched)

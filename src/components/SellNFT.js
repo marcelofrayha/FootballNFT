@@ -11,8 +11,8 @@ export default function SellNFT () {
     const [message, updateMessage] = useState('');
     const location = useLocation();
 
-    //This function uploads the NFT image to IPFS
-    async function OnChangeFile(e) {
+       //This function uploads the NFT image to IPFS
+       async function OnChangeFile(e) {
         var file = e.target.files[0];
         //check for file extension
         try {
@@ -28,7 +28,7 @@ export default function SellNFT () {
         }
     }
 
-    //This function uploads the metadata to IPFS
+    //This function uploads the metadata to IPDS
     async function uploadMetadataToIPFS() {
         const {name, description, price} = formParams;
         //Make sure that none of the fields are empty
